@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 "use strict";
 var __awaiter =
   (this && this.__awaiter) ||
@@ -41,7 +42,7 @@ var __importDefault =
 Object.defineProperty(exports, "__esModule", { value: true });
 const shelljs_1 = __importDefault(require("shelljs"));
 const commander_1 = require("commander");
-const utils_1 = require("../utils");
+const utils_1 = require("./utils");
 shelljs_1.default.set("-e");
 shelljs_1.default.set("-v");
 commander_1.program
@@ -53,7 +54,10 @@ commander_1.program
       const currentDay = new Date();
       const lastWeekDay = new Date();
       lastWeekDay.setDate(new Date().getDate() - 7);
-      const args = process.argv.slice(2);
+      const args = process.argv
+        .slice(2)
+        .filter((value) => value !== "runLeetcodeStatus")
+        .filter((value) => value !== "leetcode-status-board");
       const result = yield Promise.all(
         args.map((leetcodeUsername) =>
           __awaiter(void 0, void 0, void 0, function* () {

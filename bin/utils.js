@@ -19,7 +19,13 @@ const getFirstdayAndLastdayOfWeekFromDay = (day) => {
     const first = copiedDay.getDate() - copiedDay.getDay();
     const last = first + 6;
     const firstday = new Date(copiedDay.setDate(first));
+    firstday.setHours(0);
+    firstday.setMinutes(0);
+    firstday.setSeconds(0);
     const lastday = new Date(copiedDay.setDate(last));
+    lastday.setHours(23);
+    lastday.setMinutes(59);
+    lastday.setSeconds(59);
     return {
         firstday,
         lastday,
@@ -39,7 +45,6 @@ const queryLeetcode = (username) => __awaiter(void 0, void 0, void 0, function* 
         .then((val) => val.data.data.recentAcSubmissionList);
 });
 exports.queryLeetcode = queryLeetcode;
-(0, exports.queryLeetcode)("changwooyoo01");
 const getUserSolvedProblemCountOnTheWeek = (weeksDay, allSolvedProblems) => {
     const { firstday, lastday } = (0, exports.getFirstdayAndLastdayOfWeekFromDay)(weeksDay);
     return allSolvedProblems.filter((problem) => {

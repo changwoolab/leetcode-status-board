@@ -6,7 +6,13 @@ export const getFirstdayAndLastdayOfWeekFromDay = (day: Date) => {
   const last = first + 6;
 
   const firstday = new Date(copiedDay.setDate(first));
+  firstday.setHours(0);
+  firstday.setMinutes(0);
+  firstday.setSeconds(0);
   const lastday = new Date(copiedDay.setDate(last));
+  lastday.setHours(23);
+  lastday.setMinutes(59);
+  lastday.setSeconds(59);
 
   return {
     firstday,
@@ -32,8 +38,6 @@ export const queryLeetcode = async (username: string) => {
     })
     .then((val) => val.data.data.recentAcSubmissionList);
 };
-
-queryLeetcode("changwooyoo01");
 
 export const getUserSolvedProblemCountOnTheWeek = (
   weeksDay: Date,

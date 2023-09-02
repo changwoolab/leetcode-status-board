@@ -1,6 +1,6 @@
 import shell from "shelljs";
 import { program } from "commander";
-import { getUserSolvedProblemCountOnTheWeek, queryLeetcode } from "../utils";
+import { getUserSolvedProblemCountOnTheWeek, queryLeetcode } from "./utils";
 
 shell.set("-e");
 shell.set("-v");
@@ -14,13 +14,18 @@ program
     const lastWeekDay = new Date();
     lastWeekDay.setDate(new Date().getDate() - 7);
 
-    const args = process.argv.slice(2);
+    const args = process.argv
+      .slice(2)
+      .filter((value) => value !== "runLeetcodeStatus")
+      .filter((value) => value !== "leetcode-status-board");
 
     const result = await Promise.all(
       args.map(async (leetcodeUsername) => {
         const result = await queryLeetcode(leetcodeUsername);
+
         const currentWeeksSolvedProblemsCount =
           getUserSolvedProblemCountOnTheWeek(currentDay, result);
+
         const lastWeeksSolvedProblemsCount = getUserSolvedProblemCountOnTheWeek(
           lastWeekDay,
           result
